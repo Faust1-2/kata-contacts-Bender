@@ -19,8 +19,14 @@ class Contacts:
                   id INTEGER PRIMARY KEY,
                   name TEXT NOT NULL,
                   email TEXT NOT NULL
-                )
+                );
               """
+            )
+            connection.commit()
+            cursor.execute(
+                """
+                CREATE UNIQUE INDEX index_contacts_email ON contacts(email);
+                """
             )
             connection.commit()
         self.connection = sqlite3.connect(db_path)
@@ -84,9 +90,10 @@ def yield_contacts(num_contacts):
     yield ("Charlie", "charlie@acme.corp")
 
     for _ in range(num_contacts - 3):
-        char_num = random.randint(3, 10)
+        char_num = random.randint(20, 30)
         name = ''.join(random.choice(string.ascii_letters) for _ in range(char_num))
-        yield (name, f"{name}@random.com")
+        mail = ''.join(random.choice(string.ascii_letters) for _ in range(char_num))
+        yield (name, f"{name}@{mail}.com")
 
 
 def main():

@@ -6,7 +6,7 @@ Run the application with:
 python contacts.py <number of contacts>
 ```
 
-Commit at insert
+## Step 1
 
 | size         | final commit (in ms) | inline commit (in ms) | batch commit (in ms)
 |--------------|--------------|--------------|-------------|
@@ -20,3 +20,18 @@ Commit at insert
 | 100,000      | 0m0.339s     | x            | 0m0.376s    |
 | 1,000,000    | 0m3.338s     | x            | 0m3.707s    |
 | 10,000,000   | 0m32.453s    | x            | 0m37.392s   |
+
+## Step 2
+
+| size         | final commit (in ms) | inline commit (in ms) | batch commit (in ms)
+|--------------|--------------|--------------|-------------|
+| 10           | 0m0.037s     | 0m0.086s     | 0m0.040s    |
+| 100          | 0m0.038s     | 0m0.509s     | 0m0.037s    |
+| 500          | 0m0.042s     | 0m2.471s     | 0m0.043s    |
+| 1000         | 0m0.050s     | 0m8.042s     | 0m0.047s    |
+| 5000         | 0m0.103s     | 0m27.047s    | 0m0.095s    |
+| 10,000       | 0m0.170s     | 0m49.694s    | 0m0.168s    |
+| 50,000       | 0m0.854s     | 4m6.792s     | 0m0.760s    |
+| 100,000      | 0m1.737s     | x            | 0m1.596s    |
+| 1,000,000    | 0m17.361s    | x            | 0m28.546s   |
+| 10,000,000   | 3m27.995s    | x            | 7m42.715s   |
