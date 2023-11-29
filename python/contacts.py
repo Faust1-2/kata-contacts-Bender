@@ -28,7 +28,15 @@ class Contacts:
 
     def insert_contacts(self, contacts):
         print("Inserting contacts ...")
-        # TODO
+        cursor = self.connection.cursor()
+        for contact in contacts:
+            cursor.execute(
+                """
+                INSERT INTO contacts(name, email)
+                VALUES (?, ?)
+                """,
+                contact,
+            )
 
     def get_name_for_email(self, email):
         print("Looking for email", email)
