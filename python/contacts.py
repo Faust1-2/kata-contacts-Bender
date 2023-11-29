@@ -37,6 +37,7 @@ class Contacts:
                 """,
                 contact,
             )
+            self.connection.commit()
 
     def get_name_for_email(self, email):
         print("Looking for email", email)
