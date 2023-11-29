@@ -1,3 +1,5 @@
+import random
+import string
 import sys
 import sqlite3
 from pathlib import Path
@@ -53,11 +55,14 @@ class Contacts:
 
 
 def yield_contacts(num_contacts):
-    # TODO: Generate a lot of contacts
-    # instead of just 3
     yield ("Alice", "alice@domain.tld")
     yield ("Bob", "bob@foo.com")
     yield ("Charlie", "charlie@acme.corp")
+
+    for _ in range(num_contacts - 3):
+        char_num = random.randint(3, 10)
+        name = ''.join(random.choice(string.ascii_letters) for _ in range(char_num))
+        yield (name, f"{name}@random.com")
 
 
 def main():
