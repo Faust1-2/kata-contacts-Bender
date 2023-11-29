@@ -26,17 +26,32 @@ class Contacts:
         self.connection = sqlite3.connect(db_path)
         self.connection.row_factory = sqlite3.Row
 
+    def batch_generator(self, generator, batch_size):
+        batch = []
+
+        for item in generator:
+            batch.append(item)
+            if len(batch) == batch_size:
+                yield batch
+                batch = []
+
+        # Yield any remaining items as the last batch
+        if batch:
+            yield batch
+
     def insert_contacts(self, contacts):
+        BATCH_SIZE = 10000
         print("Inserting contacts ...")
         cursor = self.connection.cursor()
-        for contact in contacts:
-            cursor.execute(
-                """
-                INSERT INTO contacts(name, email)
-                VALUES (?, ?)
-                """,
-                contact,
-            )
+        for contact_batch in self.batch_generator(contacts, BATCH_SIZE):
+            for contact in contact_batch:
+                cursor.execute(
+                    """
+                    INSERT INTO contacts(name, email)
+                    VALUES (?, ?)
+                    """,
+                    contact,
+                )
             self.connection.commit()
 
     def get_name_for_email(self, email):
